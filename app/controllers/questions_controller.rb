@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+
+  before_action :authenticate_user!, except: %i[index show]  
   # before_action :load_question, only: [:show, :edit, :update, :destroy]
   
   expose :questions, ->{ Question.all }
@@ -21,10 +23,11 @@ class QuestionsController < ApplicationController
   def create
     # create - сохранение сразу в базу а нужно условное сохранение
 		# @question = Question.create(question_params)
+    
     @question = Question.new(question_params)
 
     if question.save
-      redirect_to @question
+      redirect_to @question, notice: 'Your question successfully created.'
     else
       render :new
     end
