@@ -45,6 +45,8 @@ gem 'slim-rails'
 
 # Helper for creating declarative interfaces in controllers
 gem 'decent_exposure', '3.0.0'
+gem 'devise'
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"
@@ -79,4 +81,5 @@ group :test do
   gem "webdrivers"
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'launchy'
 end
