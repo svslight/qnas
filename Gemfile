@@ -18,6 +18,15 @@ gem "puma", "~> 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 
+# Use Sass to process CSS
+# gem "sassc-rails"
+
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+# gem 'webpacker', '~> 4.0'
+
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+# gem 'turbolinks', '~> 5'
+
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 
@@ -45,9 +54,7 @@ gem 'slim-rails'
 
 # Helper for creating declarative interfaces in controllers
 gem 'decent_exposure', '3.0.0'
-
-# Use Sass to process CSS
-# gem "sassc-rails"
+gem 'devise'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -79,4 +86,5 @@ group :test do
   gem "webdrivers"
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'launchy'
 end
