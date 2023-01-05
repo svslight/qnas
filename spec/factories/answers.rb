@@ -1,8 +1,10 @@
 FactoryBot.define do
   factory :answer do
+    association :author, factory: :user
+    question
+
     body { "MyText" }
     correct { false }
-    question { nil }
 
     trait :invalid do
       body { nil }

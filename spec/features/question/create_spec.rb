@@ -6,13 +6,11 @@ feature 'User can create question', %q{
   I'd like to be able to ask the question
 } do
 
-  # given(:user) { User.create!(email: 'user#test.com', password: '12345678' ) }
-  given(:user) { create(:user) }  # Используем фабрику spec/factories/users.rb
+  given(:user) { create(:user) }
 
   describe "Authenticated user" do
-
     background do
-      sign_in(user)     # Описан в spec/support/feature_helpers.rb
+      sign_in(user)
 
       visit questions_path
       click_on 'Ask question'
@@ -36,7 +34,6 @@ feature 'User can create question', %q{
   end
 
   scenario 'Unauthenticated user tries to ask a question' do
-
     visit questions_path
     click_on 'Ask question'
 

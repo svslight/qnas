@@ -21,5 +21,5 @@ RSpec.describe User, type: :model do
       expect(author).not_to be_an_author_of(question)
     end
   end
-
+  
 end
