@@ -56,6 +56,14 @@ gem 'slim-rails'
 gem 'decent_exposure', '3.0.0'
 gem 'devise'
 
+# gem 'twitter-bootstrap-rails'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.2.1'
+gem "sassc-rails"
+
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+gem 'bootstrap-will_paginate', '~>1.0.0'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

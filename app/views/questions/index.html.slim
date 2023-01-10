@@ -1,4 +1,6 @@
-p= link_to 'Ask question', new_question_path, class: 'btn btn-success'
+/ Страница Списка Вопросов
+
+p= link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
 
 ul.questions
   - questions.each do |question|

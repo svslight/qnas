@@ -1,8 +1,0 @@
-p id = "question_#{question.id}"
-  = question.title
-  = link_to 'Show', question
-  = ' '
-  - if current_user&.author_of?(question)
-    = link_to 'Edit', '#', class: 'edit-question-link', data: { question_id: question.id }
-    = ' '
-    = link_to 'Delete', question, method: :delete

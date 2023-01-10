@@ -1,7 +1,13 @@
-= render 'shared/errors', resource: @answer 
+/ Партиал для создания Ответа
 
-= form_with model: [question, answer], local: true, data: { turbo: false } do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body, class: 'form-control'
+/ Начиная с версии Rails 6.1.3 и выше для ajax-запросов у форм нужно ставить
+/ флаг local: false, а не добавлять remote: true
+/ Было local: true, data: { turbo: false }
 
-  = f.submit 'Reply'
+.answer-errors
+  = render 'shared/errors', resource: @answer
+
+= form_with model: [question, answer], class: 'new-answer', local: false do |f|
+  = f.label :body
+  = f.text_area :body
+  = f.submit 'Create'
