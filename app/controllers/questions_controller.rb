@@ -4,7 +4,6 @@ class QuestionsController < ApplicationController
   
   expose :questions, ->{ Question.all }
   expose :question
-  expose :answer, -> { Answer.new }
 
   def create
     # create - сохранение сразу в базу а нужно условное сохранение
@@ -21,20 +20,25 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if question.update(question_params)
-      redirect_to question
-    else
-      render :edit
-    end
+    @question = Question.find(params[:id])
+    @question.update(question_params) if current_user.author_of?(@question)
+
+    #if current_user.author_of?(@question)
+    #  @question.update(question_params)
+    #else
+    #  redirect_to @question, notice: 'You have no rights to do this.'
+    #end
   end
 
   def destroy
-    if current_user.author_of?(question)
-      question.destroy
-      redirect_to questions_path, notice: 'Your question was successfully deleted.'
-    else
-      redirect_to question, notice: 'You have no rights to do this.'
-    end
+    question.destroy if current_user.author_of?(question)
+
+    #if current_user.author_of?(question)
+    #  question.destroy
+    #  redirect_to questions_path, notice: 'Your question was successfully deleted.'
+    #else
+    #  redirect_to question, notice: 'You have no rights to do this.'
+    #end
   end
 
   private
