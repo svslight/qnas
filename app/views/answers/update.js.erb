@@ -1,6 +1,9 @@
-$('.answer-errors').html('<%= render 'shared/errors', resource: answer %>');
+var $answerItem = $('#answer-<%= answer.id %>');
 
-<% if !answer.errors.present? %>
-  $('form#edit-answer-' + <%= answer.id %>).remove();
-  $('#answer-' + <%= answer.id %>).replaceWith('<%= j render answer %>');
+<% if answer.errors.present? %>
+  $answerItem
+      .find('.answer_errors')
+      .html('<%= render 'shared/errors', resource: answer %>');
+<% else %>
+  $answerItem.replaceWith('<%= j render answer %>');
 <% end %>

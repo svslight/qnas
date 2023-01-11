@@ -11,16 +11,15 @@
 
       ul.answer_actions
         - if current_user&.author_of?(answer)
-          li= link_to 'Delete', answer_path(answer), data: { remote: true }, method: :delete, data: {confirm: 'Are your sure?'}
+          li= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
           li= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-
+   
           / Форма Редактирования
-          = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|          
+          = form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|          
+            .answer_errors= render 'shared/errors', resource: answer
             = f.label :body, 'Your answer'
             = f.text_area :body
             = f.submit 'Save'
 
         /- if current_user&.author_of?(answer.question)
         /  li= link_to 'make best?', best_answer_path(answer), method: :patch, class: "best-answer-link", data: { answer_id: answer.id }, remote: true
-
-/  .answer_errors= render 'shared/errors', resource: answer
