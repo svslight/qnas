@@ -6,8 +6,8 @@
     li.answer id="answer-#{answer.id}"
       p= answer.body
 
-      /- if answer.best?
-      /  p= "This is better answer!"
+      - if answer.best?
+        p= "This is better answer!"
 
       ul.answer_actions
         - if current_user&.author_of?(answer)
@@ -21,5 +21,6 @@
             = f.text_area :body
             = f.submit 'Save'
 
-        /- if current_user&.author_of?(answer.question)
-        /  li= link_to 'make best?', best_answer_path(answer), method: :patch, class: "best-answer-link", data: { answer_id: answer.id }, remote: true
+          / Лучший ответ
+          - if current_user&.author_of?(answer.question)
+            li= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "best-answer-link", data: { answer_id: answer.id }
