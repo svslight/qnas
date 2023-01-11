@@ -9,6 +9,7 @@ import "jquery_ujs"
 //import "bootstrap"
 
 import "./custom/answers"
+import "./custom/questions"
 
 import "@popperjs/core";
 import "bootstrap";

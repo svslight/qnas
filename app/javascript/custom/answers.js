@@ -1,3 +1,5 @@
+// Активировать кнопку Редактирования Ответа
+// Показать Форму Редактирования
 
 $(document).on('turbo:load', function(){
   $('.question_answers').on('click', '.edit-answer-link', function(e) {
