@@ -2,8 +2,8 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]  
   
-  expose :questions, ->{ Question.all }
-  expose :question
+  expose :questions, -> { Question.all }
+  expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
 
   def create
     # create - сохранение сразу в базу а нужно условное сохранение
@@ -44,6 +44,6 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end
