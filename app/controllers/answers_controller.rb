@@ -2,8 +2,8 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create] 
   
   expose :answers, -> { Answer.all }
-  expose :answer
-  expose :question #, -> { Question.find(params[:question_id]) }
+  expose :answer,  -> { params[:id] ? Answer.with_attached_files.find(params[:id]) : Answer.new }
+  expose :question, -> { Question.find(params[:question_id]) }
 
   def create
     @answer = question.answers.new(answer_params)
@@ -12,8 +12,8 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @question = answer.question
     answer.update(answer_params) if current_user.author_of?(answer)
+    @question = answer.question
     
     #if current_user.author_of?(answer)
     #  answer.update(answer_params)
@@ -34,6 +34,10 @@ class AnswersController < ApplicationController
   end
 
   def best
+    #answer = Answer.find(params[:id])
+    #answer.make_best if current_user.author_of?(answer.question)
+    #@question = answer.question
+
     if current_user.author_of?(answer.question)
       answer.make_best
     else
@@ -44,7 +48,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body, files: [])
   end
 
 end

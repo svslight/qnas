@@ -4,10 +4,23 @@
 / флаг local: false, а не добавлять remote: true
 / Было local: true, data: { turbo: false }
 
-.answer-errors
-  = render 'shared/errors', resource: @answer
+.list-group.list-group-flush.border-bottom
+  .row.d-flex.justify-content-center
+    .col-10
+      .answer-errors
+        = render 'shared/errors', resource: @answer
 
-= form_with model: [question, answer], class: 'new-answer', local: false do |f|
-  = f.label :body
-  = f.text_area :body
-  = f.submit 'Create'
+      p= form_with model: [question, answer], class: 'new-answer', local: false do |f|
+        .form-group
+          = f.label :body, 'Введите Ваш Ответ'
+          = f.text_area :body, class: 'form-control'
+
+        /.form-group
+        /  = f.label :files, class: 'mr-2'
+        /  = f.file_field :files, multiple: true
+
+        .form-group
+          = f.label :file, 'Прикрепить выбранные файлы к ответу', class: 'mr-3'
+          = f.file_field :files, multiple: true
+
+        = f.submit 'Create', class: 'btn btn-success'

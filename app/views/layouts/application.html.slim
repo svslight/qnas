@@ -5,6 +5,7 @@ html
     title QNA
     = csrf_meta_tags
     = csp_meta_tag
+
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_importmap_tags
     
@@ -13,7 +14,7 @@ html
   body
     = render 'shared/main_nav'
 
-    p.notice = notice
-    p.alert = alert
-
-    = yield
+    .container
+      = yield
+      p.notice = notice
+      p.alert = alert    

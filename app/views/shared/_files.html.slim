@@ -1,0 +1,6 @@
+- if resource.files.attached?
+  - resource.files.each do |file|
+    div class = "attached-file-#{file.id}"
+      li= link_to file.filename.to_s, url_for(file), class: 'mr-2'
+      - if current_user&.author_of?(resource) && del
+        = link_to 'Delete File', file_path(file), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
