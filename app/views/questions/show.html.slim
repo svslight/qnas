@@ -1,12 +1,15 @@
 / Страница Вопроса, где можно создать Ответы
 
-/ Переход в шаблон _question.html.erb - список вопросов для edit, delete
+/ Переход в Партиал: Редактировать Вопрос app/views/questions/_question.html.slim
 .question_box
   = render question
 
-/ Переход в шаблон _answer.html.erb для редактирования Ответов
+/ Переход в Партиал: Редактировать Ответ app/views/answers/_answer.html.slim
+.row.d-flex.justify-content-center.py-3
+  .col-10
+    h2 Редактировать Ответ
 ul.question_answers
   = render question.answers
 
-/ Переход на Страницу создания Ответов _new.html.erb
+/ Переход в Партиал: Создание Ответа app/views/answers/_new.html.slim
 = render 'answers/new', answer: question.answers.new
