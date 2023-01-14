@@ -72,6 +72,11 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # Кук запускается после выполнение всех тестов, используюя файл FileUtils для удаления папки /storage
+  config.after(:all) do
+    FileUtils.rm_rf("#{Rails.root}/tmp/storage")
+  end
+
   # !
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
