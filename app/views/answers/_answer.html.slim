@@ -1,26 +1,44 @@
-/ Партиал для одного ответа и добавление его к списку (отрендерить). 
-/ Вызывается из app/views/answers/create.js.erb или app/views/questions/show.html.slim
-/ answer - используется как локальная переменная
+/ Партиал для Редактирования ответов и добавление его к списку (отрендерить). 
+/ Редактировать Ответы
 
-- if answer.persisted?
-    li.answer id="answer-#{answer.id}"
-      p= answer.body
+.row.d-flex.justify-content-center.py-3
+  .col-1
+  .col-11
+    / Вывести Ответы
+    - if answer.persisted?
+      li.answer id="answer-#{answer.id}"
+        p= answer.body
 
-      - if answer.best?
-        p= "This is better answer!"
+        / Вывести лучший ответ
+        - if answer.best?
+          p= "Это лучший Ответ!"
 
-      ul.answer_actions
-        - if current_user&.author_of?(answer)
-          li= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
-          li= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-   
-          / Форма Редактирования
-          = form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|          
-            .answer_errors= render 'shared/errors', resource: answer
-            = f.label :body, 'Your answer'
-            = f.text_area :body
-            = f.submit 'Save'
+        / Кнопки
+        ul.answer_actions
+          - if current_user&.author_of?(answer)
+            li= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
+            
+            li= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+            / Форма Редактирования Ответа
+            = form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|          
+              .answer_errors
+                = render 'shared/errors', resource: answer
+              .form-group
+                = f.label :body, 'Ваш Ответ'
+                = f.text_area :body, class: 'form-control'
+              .form-group
+                = f.label :files
+                = f.file_field :files, multiple: true, direct_upload: true
+              p= f.submit 'Save', class: 'btn btn-success'
 
-          / Лучший ответ
-          - if current_user&.author_of?(answer.question)
-            li= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "best-answer-link", data: { answer_id: answer.id }
+            / Прикреплённые файлы
+            - if answer.files.attached?
+                li= link_to 'Attached files'      
+                .row.d-flex.align-content-center
+                  .col-1
+                  .col-11
+                    p= render partial: 'shared/files', locals: { resource: answer, del: true }
+
+            / Выбрать Лучший ответ
+            - if current_user&.author_of?(answer.question)
+              li= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "best-answer-link", data: { answer_id: answer.id }
