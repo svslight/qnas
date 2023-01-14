@@ -1,19 +1,64 @@
-// Шаблон список вопросов для edit, delete
+/ Партиал для обработки Вопроса: Edit, Delete, Attached files
 
-h1= question.title
-p= question.body
+.row.d-flex.justify-content-center.py-3
+  .col-10
+    h2 Редактировать Вопрос
 
-- if current_user&.author_of?(question)
-  ul.question_actions
-    li= link_to 'Edit', '#', class: 'edit-question-link', data: { question_id: question.id }
 
-    = form_with model: question, class: 'hidden', local: false, html: {id: "edit-question-#{question.id}"} do |f|
-      .question_errors= render 'shared/errors', resource: question
-      = f.label :title
-      = f.text_field :title
-      = f.label :body
-      = f.text_field :body
-      = f.submit 'Save'
-      
-    li= link_to 'Delete', question_path(question), remote: true, method: :delete, data: { confirm: 'Are your sure?' }
-    
+.bg-light.border-bottom.py-1
+  .row.d-flex.align-items-center.py-1
+    .col-1      
+    .col-10   
+      h3= question.title
+      h4.mt-2= question.body
+
+
+/ Прикреплённые файлы
+- if question.files.attached?
+  .list-group.list-group-flush.border-bottom.mt-3
+    .row.d-flex.align-content-center
+      .col-1
+      .col-8
+        = link_to 'Attached files', '#'
+        .list-group.list-group-flush.border-bottom      
+          .row.d-flex.align-content-center
+            .col-12
+              ul.attached-file
+                p= render partial: 'shared/files', locals: { resource: question, del: true }
+
+
+/ Form for Edit Delete Question
+.list-group.list-group-flush.border-bottom.mt-3
+  .row.d-flex.justify-content-center
+    .col-2
+    .col-8
+      h6 Редактировать Вопрос
+  .row.d-flex.align-items-center.py-1
+    .col-1 
+    .col-10
+      - if current_user&.author_of?(question)
+        ul.question_actions
+          li= link_to 'Delete Question', question_path(question), remote: true, method: :delete, data: { confirm: 'Are your sure?' }
+          li= link_to 'Edit Question', '#', class: 'edit-question-link', data: { question_id: question.id }
+
+  .list-group.list-group-flush
+    .row.d-flex.align-items-center
+      .col-2
+      .col-10
+        / Form for Edit Question
+        p= form_with model: question, class: 'hidden', local: false, html: {id: "edit-question-#{question.id}"} do |f|
+          .question_errors= render 'shared/errors', resource: question          
+          .form-group
+            = f.label :title, 'Название Вопроса'
+            = f.text_field :title, class: 'form-control'
+
+          .form-group
+            = f.label :body, 'Вопрос'
+            = f.text_field :body, class: 'form-control'
+
+          .form-group
+            = f.label :file, 'Прикрепить файлы к Вопросу'
+            p= f.file_field :files, multiple: true
+
+          p= f.submit 'Save', class: 'btn btn-success'
+              
