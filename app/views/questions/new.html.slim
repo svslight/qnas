@@ -1,13 +1,23 @@
-/ Страница Создания Вопроса
+/ Создание Вопроса
 
-= render 'shared/errors', resource: @question
+.row.d-flex.justify-content-center
+  .col-10
+    h1.mt-3 Задайте новый вопрос
 
-= form_with model: question, local: true, data: { turbo: false } do |f|
+    p= render 'shared/errors', resource: @question
 
-  = f.label :title
-  = f.text_field :title
+    p= form_with model: question, local: true, data: { turbo: false } do |f|
 
-  = f.label :body
-  = f.text_area :body
+      .form-group
+        = f.label :title, 'Название вопроса'
+        = f.text_field :title, class: 'form-control'
 
-  = f.submit 'Ask'
+      .form-group
+        = f.label :body, 'Вопрос'
+        = f.text_area :body, class: 'form-control'
+
+      .form-group
+        = f.label :file, 'Прикрепить выбранные файлы к вопросу', class: 'mr-3'
+        = f.file_field :files, multiple: true
+
+      p= f.submit 'Ask', class: 'btn btn-success'
