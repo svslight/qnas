@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :files, only: %i[destroy]
+
   root to: 'questions#index'
 
 end
