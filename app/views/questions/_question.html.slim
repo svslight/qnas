@@ -25,6 +25,17 @@
             .col-12
               ul.attached-file
                 p= render partial: 'shared/files', locals: { resource: question, del: true }
+ 
+/Прикрепление ссылки через вложенную форму
+- if question.links.present?
+  .links.border.p-2
+    .row.d-flex.align-content-center
+      .col-1
+      .col-8
+        b Lists Links:
+        ul
+          - question.links.each do |link|
+            li= link_to link.name, link.url
 
 
 / Form for Edit Delete Question
