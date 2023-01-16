@@ -5,11 +5,16 @@ class QuestionsController < ApplicationController
   
   expose :questions, -> { Question.all }
   expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
+  # expose :answer, -> { Answer.new }
 
+  def show
+    @answer = Answer.new
+    @answer.links.new
+  end
+  
   def new
     # @question = Question.new
     question.links.new # .build
-    # question.reward = Reward.new
   end
 
   def create
