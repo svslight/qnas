@@ -1,8 +1,8 @@
 class Question < ApplicationRecord
-  has_many :answers, dependent: :destroy
-  has_many :links, dependent: :destroy
-
   belongs_to :author, class_name: 'User'
+
+  has_many :answers, dependent: :destroy
+  has_many :links, dependent: :destroy, as: :linkable
 
   # Декларация: модель имеет прикрепленные файлы
   has_many_attached :files
