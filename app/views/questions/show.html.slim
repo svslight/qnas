@@ -4,6 +4,8 @@
 .question_box
   = render question
 
+
+
 / Переход в Партиал: Редактировать Ответ app/views/answers/_answer.html.slim
 .row.d-flex.justify-content-center.py-3
   .col-10
@@ -11,5 +13,35 @@
 ul.question_answers
   = render question.answers
 
+
+
+/ Создание Ответа
+.list-group.list-group-flush.border-bottom
+  .row.d-flex.justify-content-center
+    .col-10
+      .answer-errors
+        = render 'shared/errors', resource: @answer
+
+      p= form_with model: [question, @answer], class: 'new-answer', local: false do |f|
+        .form-group
+          = f.label :body, 'Введите Ваш Ответ'
+          = f.text_area :body, class: 'form-control'
+        .form-group
+          = f.label :file, 'Прикрепить выбранные файлы к ответу', class: 'mr-3'
+          = f.file_field :files, multiple: true
+
+        / Вложенная форма
+        p Links:
+        p            
+          = f.fields_for :links do |l| 
+            p
+              = l.label :name, 'Link name'
+              = l.text_field :name
+            p
+              = l.label :url
+              = l.text_field :url
+
+        = f.submit 'Create', class: 'btn btn-success'
+
 / Переход в Партиал: Создание Ответа app/views/answers/_new.html.slim
-= render 'answers/new', answer: question.answers.new
+/= render 'answers/new', answer: question.answers.new

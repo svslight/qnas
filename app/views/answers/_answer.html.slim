@@ -1,4 +1,4 @@
-/ Партиал для Редактирования ответов и добавление его к списку (отрендерить). 
+/ Партиал для Одного Ответа и добавление его к списку (отрендерить). 
 / Редактировать Ответы
 
 .row.d-flex.justify-content-center.py-3
@@ -12,6 +12,19 @@
         / Вывести лучший ответ
         - if answer.best?
           p= "Это лучший Ответ!"
+
+        / Прикрепление ссылки через вложенную форму
+        - if answer.links.present?
+          .links.border.p-2
+            .row.d-flex.align-content-center
+              .col-1
+              .col-8
+                /b Lists Links:
+                b Список Ссылок :
+                ul
+                  - answer.links.each do |link|
+                    li= link_to link.name, link.url
+
 
         / Кнопки
         ul.answer_actions
