@@ -11,8 +11,10 @@ import "jquery_ujs"
 import "./custom/answers"
 import "./custom/questions"
 
-import "@popperjs/core";
-import "bootstrap";
+import "@popperjs/core"
+import "bootstrap"
+import "@nathanvda/cocoon"
+
 
 document.addEventListener("turbo:load", function () {
   // This code is copied from Bootstrap's docs. See link below.
