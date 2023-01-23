@@ -1,57 +1,34 @@
 / Партиал для Одного Ответа и добавление его к списку (отрендерить). 
-/ Редактировать Ответы
 
-.row.d-flex.justify-content-center.py-3
-  .col-1
-  .col-11
-    / Вывести Ответы
-    - if answer.persisted?
-      li.answer id="answer-#{answer.id}"
-        p= answer.body
+li.list-group-item id = "answer-#{answer.id}"
 
-        / Вывести лучший ответ
-        - if answer.best?
-          p= "Это лучший Ответ!"
+  - if answer.persisted?
+    /li.answer *{:class => "border-left mb-3 px-4 #{"best" if answer.best}"} id="answer-#{answer.id}"
 
-        / Прикрепление ссылки через вложенную форму
-        - if answer.links.present?
-          .links.border.p-2
-            .row.d-flex.align-content-center
-              .col-1
-              .col-8
-                /b Lists Links:
-                b Список Ссылок :
-                ul
-                  - answer.links.each do |link|
-                    li= link_to link.name, link.url
+    / Вывести лучший ответ
+    - if answer.best?
+      p.best.ml-5
+        b= "Это лучший Ответ!"
 
+    p.answer
+      b= answer.body
 
-        / Кнопки
-        ul.answer_actions
-          - if current_user&.author_of?(answer)
-            li= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
-            
-            li= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-            / Форма Редактирования Ответа
-            = form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|          
-              .answer_errors
-                = render 'shared/errors', resource: answer
-              .form-group
-                = f.label :body, 'Ваш Ответ'
-                = f.text_area :body, class: 'form-control'
-              .form-group
-                = f.label :files
-                = f.file_field :files, multiple: true, direct_upload: true
-              p= f.submit 'Save', class: 'btn btn-success'
+    ul.answer_actions *{:class => "list-inline"}
 
-            / Прикреплённые файлы
-            - if answer.files.attached?
-                li= link_to 'Attached files'      
-                .row.d-flex.align-content-center
-                  .col-1
-                  .col-11
-                    p= render partial: 'shared/files', locals: { resource: answer, del: true }
+      / Выбрать Лучший ответ
+      - if current_user&.author_of?(answer.question)
+        li.list-inline-item= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "ml-4 mr-2 best-answer-link", data: { answer_id: answer.id }
 
-            / Выбрать Лучший ответ
-            - if current_user&.author_of?(answer.question)
-              li= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "best-answer-link", data: { answer_id: answer.id }
+      - if current_user&.author_of?(answer)
+        li.list-inline-item= link_to 'Edit', '#', class: 'mr-2 edit-answer-link', data: { answer_id: answer.id }
+        li.list-inline-item.mb-4= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}    
+
+      / Прикреплённые файлы
+      - if answer.files.attached?
+        = render 'shared/files', files: answer.files
+
+      / Прикреплённые ссылки
+      - if answer.links.any? && answer.links[0].persisted?
+        = render 'shared/links', links: answer.links
+
+      = render 'answers/form', answer: answer        

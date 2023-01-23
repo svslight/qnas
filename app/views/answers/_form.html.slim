@@ -1,0 +1,28 @@
+/ Скрытая Форма Редактирования
+.row.d-flex.justify-content-center
+  .col-10
+    p= form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|
+
+      .answer_errors= render 'shared/errors', resource: answer
+
+      h5
+        b Форма редактирования ответа
+      .form-group.border.p-3
+        = f.label :body, 'Ваш Ответ'
+        = f.text_area :body, class: 'form-control'
+
+      / Вложенная форма для файлов
+      p
+        b Изменить список файлов к ответу:
+      .form-group.border.p-3              
+        = f.label :files, 'Прикрепить файлы', class: 'mr-3'
+        = f.file_field :files, multiple: true, direct_upload: true
+
+      / Вложенная форма для ссылок
+      p
+        b Изменить список ссылок к ответу:
+      #links.border.p-3
+        - answer.links.build if answer.links.empty?
+        = render 'shared/links_form', form: f
+
+      p= f.submit 'Save', class: 'btn btn-success mt-3'
