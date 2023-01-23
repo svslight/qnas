@@ -7,7 +7,7 @@ class Answer < ApplicationRecord
   has_many_attached :files
 
   # Makros принимает атрибуты для модели Links, при создании Ответа создавает ссылки
-  accepts_nested_attributes_for :links, reject_if: :all_blank
+  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   validates :body, presence: true
 

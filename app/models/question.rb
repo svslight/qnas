@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   has_many_attached :files
 
   # Makros принимает атрибуты для модели Links, при создании Вопроса создавает ссылки
-  accepts_nested_attributes_for :links, reject_if: :all_blank
+  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   validates :title, :body, presence: true  
 end
