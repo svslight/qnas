@@ -1,14 +1,12 @@
 p 
   b Список Ссылок:
 ul.links *{:class => "mb-2"}
-  - links.each do |link| 
-    div class = "link-#{link.id}"
-      li= link_to link.name, link.url 
-           
-      /- if current_user&.author_of?(question )
-        p= link_to 'Delete Link', link_path(link), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
-  
-      /- if link.gist?
-        - link.gist.each do |file|
-          br
-          = simple_format(file.values.join("\n"), {},  wrapper_tag: "code")
+  - links.each do |link|
+    li class = "link-#{link.id}"
+      - if link.gist?
+        p.badge.badge-primary Gist Text:
+        p= link.gist_content
+      - else
+        = link_to link.name, link.url
+      - if current_user&.author_of?(question)
+        p= link_to 'Delete Link', link_path(link), method: :delete, remote: true
