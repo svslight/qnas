@@ -15,6 +15,9 @@ html
     = render 'shared/main_nav'
 
     .container
-      = yield
-      p.notice = notice
-      p.alert = alert    
+      .mt-2 *{:class => "b-2"}
+        /= yield
+        p.notice = notice
+        p.alert = alert  
+
+        = yield  
