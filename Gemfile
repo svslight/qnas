@@ -61,10 +61,13 @@ gem 'bootstrap', '~> 4.2.1'
 gem "sassc-rails"
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'bootstrap-will_paginate', '~>1.0.0'
+gem 'aws-sdk-s3', require: false
 
 # Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms
 gem 'cocoon'
 
+gem "octokit", "~> 4.0"
+gem 'octicons_helper'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
