@@ -1,7 +1,7 @@
 / Список Вопросов
 
 .bg-light.border-bottom
-  .row.d-flex.align-items-center.py-3
+  .row.d-flex.align-items-center
     .col-1
     .col-5
       h2 A list of questions
@@ -9,7 +9,7 @@
       nav.nav.justify-content-end
         = link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
 
-.list-group.list-group-flush.mt-4
+.list-group.list-group-flush.mt-3
   ul.questions
     - questions.each do |question|
       li.question= link_to question.title, question
