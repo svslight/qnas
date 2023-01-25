@@ -1,13 +1,13 @@
 / Партиал для Одного Ответа и добавление его к списку (отрендерить). 
 
-li.list-group-item id = "answer-#{answer.id}"
+li.list-group-item.mb-4  id = "answer-#{answer.id}"
 
   - if answer.persisted?
     /li.answer *{:class => "border-left mb-3 px-4 #{"best" if answer.best}"} id="answer-#{answer.id}"
 
     / Вывести лучший ответ
     - if answer.best?
-      p.best.ml-5
+      p.best.ml-4
         b= "Это лучший Ответ!"
 
     p.answer

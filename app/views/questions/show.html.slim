@@ -1,21 +1,20 @@
 / Страница Вопроса, где можно создать Ответы
 
 / Переход в Партиал Вопроса: app/views/questions/_question.html.slim
-.row.d-flex.justify-content-center.py-2
+/.row.d-flex.justify-content-center
   .col-10
     h2 Вопрос
-.question_box
+.question_box *{:class => "border rounded border-primary mb-4 px-3"}
   = render question
 
 / Переход в Партиала Ответа: app/views/answers/_answer.html.slim
-.row.d-flex.justify-content-center.py-2
+/.row.d-flex.justify-content-center.py-2
   .col-10
     h2 Ответы
-.question_answers
-  = render question.answers
-
+ul.question_answers
+  = render question.answers.with_attached_files
 
 / Переход в Партиал Создания Answer, Attached Files, Links: app/views/answers/_new.html.slim
-.row.d-flex.justify-content-center.py-2
+/.row.d-flex.justify-content-center.py-2
   .col-10
-    = render 'answers/new', answer: question.answers.new
+= render 'answers/new', answer: question.answers.new

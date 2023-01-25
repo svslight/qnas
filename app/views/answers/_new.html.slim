@@ -4,29 +4,30 @@
 / флаг local: false, а не добавлять remote: true
 / Было local: true, data: { turbo: false }
 
-/h2= "Add your answer:"
-h4.mb-3 Добавьте ваш ответ
+.new-answer *{:class => "border rounded border-info mb-5 p-3"}
+  /h2= "Add your answer:"
+  h4.mb-3 Добавьте ваш ответ
 
-.answer-errors
-  = render 'shared/errors', resource: @answer
+  .answer-errors
+    = render 'shared/errors', resource: @answer
 
-= form_with model: [question, answer], class: 'new-answer', local: false do |f|
-  .form-group.p-2
-    = f.label :body, 'Ответ'
-    = f.text_area :body, class: 'form-control'
+  = form_with model: [question, answer], class: 'new-answer', local: false do |f|
+    .form-group.p-2
+      = f.label :body, 'Ответ'
+      = f.text_area :body, class: 'form-control'
 
-  / Вложенная форма для файлов
-  p
-    b Добавить файлы:
-  .form-group.border.p-2
-    = f.label :file, 'Прикрепить файлы', class: 'mr-3'
-    = f.file_field :files, multiple: true
+    / Вложенная форма для файлов
+    p
+      b Добавить файлы:
+    .form-group.border.p-2
+      = f.label :file, 'Прикрепить файлы', class: 'mr-3'
+      = f.file_field :files, multiple: true
 
-  / Вложенная форма для ссылок
-  p 
-    b Добавить ссылки:
-  #links.border.p-2
-    - answer.links.build if answer.links.empty?
-    = render 'shared/links_form', form: f
+    / Вложенная форма для ссылок
+    p 
+      b Добавить ссылки:
+    #links.border.p-2
+      - answer.links.build if answer.links.empty?
+      = render 'shared/links_form', form: f
 
-  = f.submit 'Create', class: 'btn btn-success'
+    = f.submit 'Reply', class: 'btn btn-success'

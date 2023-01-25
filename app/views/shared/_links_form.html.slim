@@ -4,13 +4,13 @@
       = l.label :name, 'Название'
       = l.text_field :name, class: "form-control"
 
-      = l.label :url, class: 'mt-3'
+      = l.label :url, class: 'mt-2'
       = l.text_area :url, class: "form-control"
 
       - if l.object.persisted?      
         p.form-check.form-check-inline
-          = l.check_box :_destroy, class: "mt-2 form-check-input"
-          = l.label :_destroy, "Delete link", class: "mt-2 form-check-label"
+          = l.check_box :_destroy, class: "form-check-input"
+          = l.label :_destroy, "Delete link", class: "form-check-label"
 
 br
-p= submit_tag 'Add more link', :type => 'button', class: 'mt-2 add-link'
+p= submit_tag 'Add more link', :type => 'button', class: 'add-link'

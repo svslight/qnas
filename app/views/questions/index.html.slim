@@ -9,7 +9,7 @@
       nav.nav.justify-content-end
         = link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
 
-.list-group.list-group-flush.mt-3
+.list-group.list-group-flush.mt-4
   ul.questions
     - questions.each do |question|
       li.question= link_to question.title, question
