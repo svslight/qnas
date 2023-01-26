@@ -1,19 +1,20 @@
 / Партиал для Одного Ответа и добавление его к списку (отрендерить). 
 
-li.list-group-item.mb-4  id = "answer-#{answer.id}"
+/li.list-group-item.mb-4  id = "answer-#{answer.id}"
 
-  - if answer.persisted?
-    /li.answer *{:class => "border-left mb-3 px-4 #{"best" if answer.best}"} id="answer-#{answer.id}"
+- if answer.persisted?
+  li.answer *{:class => "border-left mb-3 px-4 #{"best" if answer.best}"} id="answer-#{answer.id}"
 
     / Вывести лучший ответ
     - if answer.best?
-      p.best.ml-4
-        b= "Это лучший Ответ!"
+      p.best
+        = octicon "mortar-board", :height => 48
+        b.ml-4= "Это лучший Ответ!"
 
     p.answer
       b= answer.body
 
-    ul.answer_actions *{:class => "list-inline"}
+    ul.answer_actions *{:class => "list-inline mb-2"}
 
       / Выбрать Лучший ответ
       - if current_user&.author_of?(answer.question)
