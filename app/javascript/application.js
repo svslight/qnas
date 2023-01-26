@@ -5,8 +5,6 @@ import "controllers"
 
 import 'jquery'
 import "jquery_ujs"
-//import "popper"
-//import "bootstrap"
 
 import "./custom/answers"
 import "./custom/questions"
@@ -15,7 +13,6 @@ import "./custom/add_link"
 import "@popperjs/core"
 import "bootstrap"
 import "@nathanvda/cocoon"
-
 
 document.addEventListener("turbo:load", function () {
   // This code is copied from Bootstrap's docs. See link below.

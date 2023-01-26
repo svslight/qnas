@@ -1,7 +1,6 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
-
   before_action -> { question.links.build }, only: [:new, :create]
    
   expose :questions, -> { Question.all }

@@ -31,7 +31,7 @@ ul.question_answers > li:before {
   content: '';
   display: inline-block;
   height: 32px;
-  width: 32px;
+  width: 32px; 
   background-image: url(asset_path('octicons-svg/comment.svg'));
   background-size: contain;
   background-repeat: no-repeat;
