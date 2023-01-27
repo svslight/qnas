@@ -1,4 +1,11 @@
-nav.navbar.navbar-light style="background-color: #e3f2fd;"
+nav.navbar *{:class => "navbar-light border-top border-bottom"}
+  = link_to 'Questions', root_path, class: "navbar-brand"
+
+  = render 'shared/user_nav'
+
+
+
+/nav.navbar.navbar-light style="background-color: #e3f2fd;"
   div.ml-auto
     - if user_signed_in?
       = link_to  'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link'

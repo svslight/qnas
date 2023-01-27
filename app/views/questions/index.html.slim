@@ -1,13 +1,14 @@
 / Список Вопросов
 
 .bg-light.border-bottom
-  .row.d-flex.align-items-center.py-3
+  .row.d-flex.align-items-center
     .col-1
     .col-5
-      h2 A list of questions
+      h2 Список вопросов
     .col-3
       nav.nav.justify-content-end
         = link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
+        = link_to 'See My Rewards', user_rewards_path(current_user), class: 'btn btn-success btn-sm ml-4'
 
 .list-group.list-group-flush.mt-4
   ul.questions

@@ -1,44 +1,39 @@
-/ Партиал для Редактирования ответов и добавление его к списку (отрендерить). 
-/ Редактировать Ответы
+/ Партиал для Одного Ответа и добавление его к списку (отрендерить). 
 
-.row.d-flex.justify-content-center.py-3
-  .col-1
-  .col-11
-    / Вывести Ответы
-    - if answer.persisted?
-      li.answer id="answer-#{answer.id}"
-        p= answer.body
+/li.list-group-item.mb-4  id = "answer-#{answer.id}"
 
-        / Вывести лучший ответ
-        - if answer.best?
-          p= "Это лучший Ответ!"
+- if answer.persisted?
+  li.answer *{:class => "border-left mb-3 px-4 #{"best" if answer.best}"} id="answer-#{answer.id}"
 
-        / Кнопки
-        ul.answer_actions
-          - if current_user&.author_of?(answer)
-            li= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}
-            
-            li= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-            / Форма Редактирования Ответа
-            = form_with model: answer, class: 'hidden', local: false, html: { id: "edit-answer-#{answer.id}" } do |f|          
-              .answer_errors
-                = render 'shared/errors', resource: answer
-              .form-group
-                = f.label :body, 'Ваш Ответ'
-                = f.text_area :body, class: 'form-control'
-              .form-group
-                = f.label :files
-                = f.file_field :files, multiple: true, direct_upload: true
-              p= f.submit 'Save', class: 'btn btn-success'
+    / Вывести лучший ответ
+    - if answer.best?
+      p.best
+        = octicon "mortar-board", :height => 48
+        b.ml-4= "Это лучший Ответ!"
 
-            / Прикреплённые файлы
-            - if answer.files.attached?
-                li= link_to 'Attached files'      
-                .row.d-flex.align-content-center
-                  .col-1
-                  .col-11
-                    p= render partial: 'shared/files', locals: { resource: answer, del: true }
+      - if answer.reward.present?
+        .reward.mb-4
+          = render answer.reward
 
-            / Выбрать Лучший ответ
-            - if current_user&.author_of?(answer.question)
-              li= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "best-answer-link", data: { answer_id: answer.id }
+    p.answer
+      b= answer.body
+
+    ul.answer_actions *{:class => "list-inline mb-2"}
+
+      / Выбрать Лучший ответ
+      - if current_user&.author_of?(answer.question)
+        li.list-inline-item= link_to 'Make best?', best_answer_path(answer), remote: true, method: :patch, class: "ml-4 mr-2 best-answer-link", data: { answer_id: answer.id }
+
+      - if current_user&.author_of?(answer)
+        li.list-inline-item= link_to 'Edit', '#', class: 'mr-2 edit-answer-link', data: { answer_id: answer.id }
+        li.list-inline-item.mb-4= link_to 'Delete', answer_path(answer), remote: true, method: :delete, data: {confirm: 'Are your sure?'}    
+
+      / Прикреплённые файлы
+      - if answer.files.attached?
+        = render 'shared/files', files: answer.files
+
+      / Прикреплённые ссылки
+      - if answer.links.any? && answer.links[0].persisted?
+        = render 'shared/links', links: answer.links
+
+      = render 'answers/form', answer: answer        

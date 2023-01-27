@@ -1,23 +1,36 @@
-/ Создание Вопроса
+/ Создание Question, Attached: Files, Links
 
 .row.d-flex.justify-content-center
   .col-10
-    h1.mt-3 Задайте новый вопрос
+    h1 Задайте новый вопрос
 
     p= render 'shared/errors', resource: @question
 
     p= form_with model: question, local: true, data: { turbo: false } do |f|
-
       .form-group
         = f.label :title, 'Название вопроса'
         = f.text_field :title, class: 'form-control'
-
       .form-group
         = f.label :body, 'Вопрос'
         = f.text_area :body, class: 'form-control'
 
-      .form-group
-        = f.label :file, 'Прикрепить выбранные файлы к вопросу', class: 'mr-3'
+      / Вложенная форма для файлов
+      p
+        b Добавить файлы:
+      .form-group.border.p-2.ml-4
+        = f.label :file, 'Прикрепить файлы', class: 'mr-3'
         = f.file_field :files, multiple: true
 
-      p= f.submit 'Ask', class: 'btn btn-success'
+      / Вложенная форма для ссылок
+      p
+        b Добавить ссылки:
+      .form-group.border.p-2.ml-4
+        = render 'shared/links_form', form: f
+
+      / Вложенная форма для наград
+      p
+        b Добавить награды:
+      .form-group.border.p-2.ml-4
+        = render 'shared/reward_form', form: f
+
+      p= f.submit 'Ask', class: 'btn btn-success mt-3'

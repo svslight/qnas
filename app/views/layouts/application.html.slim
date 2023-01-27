@@ -2,6 +2,7 @@
 doctype html
 html
   head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     title QNA
     = csrf_meta_tags
     = csp_meta_tag
@@ -15,6 +16,9 @@ html
     = render 'shared/main_nav'
 
     .container
-      = yield
-      p.notice = notice
-      p.alert = alert    
+      .mt-2 *{:class => "b-2"}
+        /= yield
+        p.notice = notice
+        p.alert = alert  
+
+        = yield  

@@ -1,9 +1,22 @@
 class QuestionsController < ApplicationController
 
-  before_action :authenticate_user!, except: %i[index show]  
-  
+  before_action :authenticate_user!, except: %i[index show]
+  # before_action -> { question.links.build }, only: [:new, :create]
+   
   expose :questions, -> { Question.all }
   expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
+  expose :answer, -> { Answer.new }
+
+  def new
+    # @question = Question.new
+    question.links.new # .build
+    question.reward = Reward.new
+  end
+
+  def show
+    # @answer = Answer.new
+    answer.links.new
+  end
 
   def create
     # create - сохранение сразу в базу а нужно условное сохранение
@@ -31,7 +44,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question.destroy if current_user.author_of?(question)
+    question.destroy if current_user.author_of?(question)    
 
     #if current_user.author_of?(question)
     #  question.destroy
@@ -44,6 +57,10 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [])
+    params.require(:question).permit(:title, :body, 
+      files: [],
+      links_attributes: [:name, :url, :id, :_destroy],
+      reward_attributes: %i[title image]
+      )
   end
 end

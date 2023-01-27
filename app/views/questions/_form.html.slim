@@ -1,0 +1,30 @@
+/ Скрытая Форма: Редактирование Вопроса
+.row.d-flex.justify-content-center.py-2
+  .col-11
+    p= form_with model: question, class: 'hidden', local: false, html: {id: "edit-question-#{question.id}"} do |f|
+
+      .question_errors= render 'shared/errors', resource: question
+
+      h5
+        b Форма редактирования
+      .form-group.border.p-3
+        = f.label :title, 'Название Вопроса'
+        = f.text_field :title, class: 'form-control'      
+        = f.label :body, 'Вопрос'
+        = f.text_field :body, class: 'form-control'
+
+      / Вложенная форма для файлов
+      p
+        b Изменить список файлов к вопросу:
+      .form-group.border.p-3
+        = f.label :file, 'Прикрепить файлы', class: 'mr-3'
+        = f.file_field :files, multiple: true, direct_upload: true
+
+      / Вложенная форма для ссылок
+      p
+        b Изменить список ссылок к вопросу:
+      #links.border.p-3
+        - question.links.build if question.links.empty?
+        = render 'shared/links_form', form: f
+
+      p= f.submit 'Save', class: 'btn btn-success'
