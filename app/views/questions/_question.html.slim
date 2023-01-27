@@ -15,4 +15,13 @@ li.list-group-item id = "question-#{question.id}"
   - if question.links.any? && question.links[0].persisted?
     = render 'shared/links', links: question.links
 
+  br
+  - if question.reward.present?
+    .reward
+      = render question.reward
+        
+  /- unless question.reward.nil?
+    / TODO можно ли вставить ссылку в строку без html_safe?
+    blockquote.blockquote= "Назначенная награда #{link_to  question.reward.title, question.reward}!".html_safe
+
   = render 'questions/form', question: question

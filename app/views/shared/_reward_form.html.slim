@@ -1,0 +1,8 @@
+/b Награды для вопроса:
+= form.fields_for :reward do |r|
+  .nested_reward
+    = r.label :title, 'Название'
+    = r.text_field :title, class: "form-control"
+    p
+      = r.label :image, 'Выбрать награду', class: 'mr-3 mt-2'
+      = r.file_field :image

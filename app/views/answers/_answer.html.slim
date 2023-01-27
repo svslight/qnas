@@ -11,6 +11,10 @@
         = octicon "mortar-board", :height => 48
         b.ml-4= "Это лучший Ответ!"
 
+      - if answer.reward.present?
+        .reward.mb-4
+          = render answer.reward
+
     p.answer
       b= answer.body
 

@@ -1,20 +1,21 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
-  before_action -> { question.links.build }, only: [:new, :create]
+  # before_action -> { question.links.build }, only: [:new, :create]
    
   expose :questions, -> { Question.all }
   expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
-  # expose :answer, -> { Answer.new }
+  expose :answer, -> { Answer.new }
 
-  #def new
+  def new
     # @question = Question.new
-    # question.links.new # .build
-  #end
+    question.links.new # .build
+    question.reward = Reward.new
+  end
 
   def show
-    @answer = Answer.new
-    @answer.links.new
+    # @answer = Answer.new
+    answer.links.new
   end
 
   def create
@@ -57,7 +58,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, 
-      files: [], 
-      links_attributes: [:name, :url, :id, :_destroy])
+      files: [],
+      links_attributes: [:name, :url, :id, :_destroy],
+      reward_attributes: %i[title image]
+      )
   end
 end

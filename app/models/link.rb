@@ -9,10 +9,15 @@ class Link < ApplicationRecord
 
   def gist?
     url =~ /gist.github.com/
+    # url =~ GIST_FORMAT
   end
 
   def gist_content
     Octokit::Client.new.gist(url.split('/').last).files.first[1].content if gist?
   end
+
+  # def gist
+  #  Octokit::Client.new.gist(url.split('/').last).files.map { |file| { name: file[0].to_s, content: file[1]['content'] } }
+  # end
 
 end

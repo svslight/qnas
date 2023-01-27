@@ -17,13 +17,20 @@
       / Вложенная форма для файлов
       p
         b Добавить файлы:
-      .form-group.border.p-2
+      .form-group.border.p-2.ml-4
         = f.label :file, 'Прикрепить файлы', class: 'mr-3'
         = f.file_field :files, multiple: true
 
       / Вложенная форма для ссылок
       p
-        b Добавить ссылки:      
-      = render 'shared/links_form', form: f
+        b Добавить ссылки:
+      .form-group.border.p-2.ml-4
+        = render 'shared/links_form', form: f
+
+      / Вложенная форма для наград
+      p
+        b Добавить награды:
+      .form-group.border.p-2.ml-4
+        = render 'shared/reward_form', form: f
 
       p= f.submit 'Ask', class: 'btn btn-success mt-3'
