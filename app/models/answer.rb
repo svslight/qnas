@@ -1,14 +1,17 @@
 class Answer < ApplicationRecord
-  belongs_to :question
+  
   belongs_to :author, class_name: 'User'
 
-  has_one :reward  
-  has_many :links, dependent: :destroy, as: :linkable
+  belongs_to :question
+  has_one :reward
 
-  has_many_attached :files
+  has_many :links, dependent: :destroy, as: :linkable
+  has_many :votes, dependent: :destroy, as: :voteable
 
   # Makros принимает атрибуты для модели Links, при создании Ответа создавает ссылки
   accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
+
+  has_many_attached :files
 
   validates :body, presence: true
 
@@ -23,4 +26,7 @@ class Answer < ApplicationRecord
     end
   end
 
+  def rating
+    self.votes.sum(:value)
+  end
 end
