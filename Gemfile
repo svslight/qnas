@@ -59,8 +59,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'
 gem "sassc-rails"
-gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
-gem 'bootstrap-will_paginate', '~>1.0.0'
+# gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+# gem 'bootstrap-will_paginate', '~>1.0.0'
 gem 'aws-sdk-s3', require: false
 
 # Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms
