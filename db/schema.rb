@@ -96,14 +96,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_111519) do
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer "value"
-    t.bigint "user_id"
-    t.string "voteable_type"
-    t.bigint "voteable_id"
+    t.integer "state"
+    t.bigint "author_id"
+    t.string "votable_type"
+    t.bigint "votable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_votes_on_user_id"
-    t.index ["voteable_type", "voteable_id"], name: "index_votes_on_voteable"
+    t.index ["author_id"], name: "index_votes_on_author_id"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -113,5 +113,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_31_111519) do
   add_foreign_key "questions", "users", column: "author_id"
   add_foreign_key "rewards", "answers"
   add_foreign_key "rewards", "questions"
-  add_foreign_key "votes", "users"
+  add_foreign_key "votes", "users", column: "author_id"
 end
