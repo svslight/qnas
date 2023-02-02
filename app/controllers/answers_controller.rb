@@ -51,10 +51,10 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body,
-                                  Voted::STRONG_PARAMS,
-                                  files: [],
-                                  links_attributes: [:name, :url, :id, :_destroy]
-                                  )
+      Voted::STRONG_PARAMS,
+      files: [],
+      links_attributes: [:name, :url, :id, :_destroy]
+    )
   end
 
 end

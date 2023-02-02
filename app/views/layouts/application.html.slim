@@ -17,8 +17,9 @@ html
 
     .container
       .mt-2 *{:class => "b-2"}
-        /= yield
-        p.notice = notice
-        p.alert = alert  
+        = render 'shared/flash'
+
+        /p.notice = notice
+        /p.alert = alert
 
         = yield  
