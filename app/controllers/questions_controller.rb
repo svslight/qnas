@@ -1,9 +1,12 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
+
+  include Voted
+
   # before_action -> { question.links.build }, only: [:new, :create]
    
-  expose :questions, -> { Question.all }
+  expose :questions, -> { Question.all.order(created_at: :desc) }
   expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
   expose :answer, -> { Answer.new }
 
@@ -57,10 +60,13 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body, 
+    params.require(:question).permit(:title, 
+      :body,
+      :vote,
+      Voted::STRONG_PARAMS,
       files: [],
       links_attributes: [:name, :url, :id, :_destroy],
       reward_attributes: %i[title image]
-      )
+    )
   end
 end

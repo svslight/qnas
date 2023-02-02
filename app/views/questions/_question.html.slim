@@ -4,6 +4,8 @@ li.list-group-item id = "question-#{question.id}"
   h3= question.title
   h4.mb-4= question.body
 
+  = render 'shared/votes', resource: question
+
   - if current_user&.author_of?(question)
     ul.question_actions *{:class => "list-inline"}
       li.list-inline-item= link_to 'Edit', '#', class: 'ml-4 mr-2 edit-question-link', data: { question_id: question.id }
@@ -19,9 +21,10 @@ li.list-group-item id = "question-#{question.id}"
   - if question.reward.present?
     .reward
       = render question.reward
-        
-  /- unless question.reward.nil?
+      
+  br      
+  - unless question.reward.nil?
     / TODO можно ли вставить ссылку в строку без html_safe?
-    blockquote.blockquote= "Назначенная награда #{link_to  question.reward.title, question.reward}!".html_safe
+    blockquote.blockquote.mt-3= "Назначенная награда: #{link_to  question.reward.title, question.reward}!".html_safe
 
   = render 'questions/form', question: question

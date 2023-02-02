@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create] 
+  before_action :authenticate_user!, only: [:create]
+
+  include Voted
   
   expose :answers, -> { Answer.all }
   expose :answer,  -> { params[:id] ? Answer.with_attached_files.find(params[:id]) : Answer.new }
@@ -48,8 +50,11 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:body, 
-      files: [], links_attributes: [:name, :url, :id, :_destroy])
+    params.require(:answer).permit(:body,
+      Voted::STRONG_PARAMS,
+      files: [],
+      links_attributes: [:name, :url, :id, :_destroy]
+    )
   end
 
 end

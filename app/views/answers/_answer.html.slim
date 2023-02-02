@@ -16,9 +16,11 @@
           = render answer.reward
 
     p.answer
-      b= answer.body
+      h5.mb-4= answer.body
 
-    ul.answer_actions *{:class => "list-inline mb-2"}
+    = render 'shared/votes', resource: answer
+
+    ul.answer_actions *{:class => "list-inline mb-2 mt-4"}
 
       / Выбрать Лучший ответ
       - if current_user&.author_of?(answer.question)

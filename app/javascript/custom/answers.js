@@ -1,5 +1,4 @@
-// Активировать кнопку Редактирования Ответа
-// Показать Форму Редактирования
+// Активировать кнопку: Показать Форму Редактирования Ответа
 
 $(document).on('turbo:load', function(){
   $('.question_answers').on('click', '.edit-answer-link', function(e) {
@@ -7,5 +6,5 @@ $(document).on('turbo:load', function(){
       $(this).hide();
       var answerId = $(this).data('answerId');
       $('form#edit-answer-' + answerId).removeClass('hidden');
-  })
+  })	
 });
