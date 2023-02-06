@@ -59,16 +59,23 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'
 gem "sassc-rails"
-# gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
-# gem 'bootstrap-will_paginate', '~>1.0.0'
 gem 'aws-sdk-s3', require: false
+gem 'faraday-retry'
+gem "net-http"
 
 # Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms
 gem 'cocoon'
 
 gem "octokit", "~> 4.0"
 gem 'octicons_helper'
-gem 'faraday-retry'
+
+# Библиотека предоставляет универальный интерфейс доступа к	любым провайдерам открытой аутентификации
+gem 'omniauth'
+# Gem для каждого конкретного провайдера
+gem 'omniauth-github'
+gem "omniauth-rails_csrf_protection"
+# gem 'omniauth-linkedin-oauth2', '~> 1.0'
+# gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -102,3 +109,5 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
 end
+
+gem "oauth2", "~> 2.0"
