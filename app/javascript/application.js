@@ -14,6 +14,7 @@ import "./custom/votable"
 import "@popperjs/core"
 import "bootstrap"
 import "@nathanvda/cocoon"
+// import "omniauth"
 
 document.addEventListener("turbo:load", function () {
   // This code is copied from Bootstrap's docs. See link below.
