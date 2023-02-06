@@ -19,7 +19,11 @@ module Qna
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Загрузка всех директорий папки /app
+    config.autoload_paths += [config.root.join('app')]    
+
     config.generators do |g|
+      # указываем :rspec, для которого настройки
       g.test_framework :rspec,
                         view_specs: false,
                         helper_specs: false,
