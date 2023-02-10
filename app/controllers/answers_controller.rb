@@ -1,7 +1,9 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
-
   include Voted
+
+  before_action :authenticate_user!, only: [:create]
+  after_action :publish_answer, only: [:create]
+  # after_action :publish_answer, only: [:create, :destroy, :update]
   
   expose :answers, -> { Answer.all }
   expose :answer,  -> { params[:id] ? Answer.with_attached_files.find(params[:id]) : Answer.new }
@@ -51,9 +53,20 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body,
-      Voted::STRONG_PARAMS,
+      # Voted::STRONG_PARAMS,
       files: [],
       links_attributes: [:name, :url, :id, :_destroy]
+    )
+  end
+
+  def publish_answer
+    return if answer.errors.any?
+
+    ActionCable.server.broadcast(
+      "answers_question_#{question.id}",
+      answer: answer,
+      files: cable_files(answer),
+      links: cable_links(answer)
     )
   end
 

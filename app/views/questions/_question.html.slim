@@ -4,6 +4,7 @@ li.list-group-item id = "question-#{question.id}"
   h3= question.title
   h4.mb-4= question.body
 
+  /- if current_user&.author_of?(question)
   = render 'shared/votes', resource: question
 
   - if current_user&.author_of?(question)

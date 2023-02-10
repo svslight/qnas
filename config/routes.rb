@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   #
   concern :votable do
     member do
-      patch :vote
+      # patch :vote
+      patch :vote_up
+      patch :vote_down
+      # patch :cancel_vote
     end
   end
 
@@ -25,5 +28,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'questions#index'
+
+  mount ActionCable.server => '/cable'
 
 end
