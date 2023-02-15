@@ -13,5 +13,9 @@ pin "jquery_ujs", to: "jquery_ujs.js", preload: true
 pin "bootstrap", to: "bootstrap.min.js", preload: true
 pin "@popperjs/core", to: "popper.js", preload: true
 
-# pin "@nathanvda/cocoon", to: "cocoon.js", preload: true
+pin "@rails/actioncable", to: "actioncable.esm.js"      
+pin "@rails/activestorage", to: "activestorage.esm.js"
+pin_all_from "app/javascript/channels", under: "channels"
+pin_all_from "app/javascript/templates", under: "templates"
+
 pin "@nathanvda/cocoon", to: "https://ga.jspm.io/npm:@nathanvda/cocoon@1.2.14/cocoon.js"

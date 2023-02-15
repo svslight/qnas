@@ -38,4 +38,11 @@
       - if answer.links.any? && answer.links[0].persisted?
         = render 'shared/links', links: answer.links
 
+      div[id="comments-answer-#{answer.id}" class="comments"]
+        - if current_user
+          = render 'comments/new', comment: answer.comments.new
+
+        ul
+          = render partial: 'comments/comment', collection: answer.comments.select(&:persisted?), :as => :comment
+
       = render 'answers/form', answer: answer        

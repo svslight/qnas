@@ -4,7 +4,7 @@ class Vote < ApplicationRecord
 
   belongs_to :votable, polymorphic: true
 
-  validates :state, inclusion: { in: [-1, 1] }
+  validates :state, presence: true, inclusion: { in: [-1, 1] }
   validates :author_id, uniqueness: { scope: [:votable_type, :votable_id], case_sensitive: false }
 
   def voting(state)

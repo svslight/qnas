@@ -13,5 +13,6 @@
 
 .list-group.list-group-flush.mt-4
   ul.questions
-    - questions.each do |question|
-      li.question= link_to question.title, question
+    = render partial: 'question_simple', collection: questions, :as => :question
+    / - questions.each do |question|
+    /   li.question= link_to question.title, question

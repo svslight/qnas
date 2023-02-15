@@ -1,7 +1,10 @@
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!, only: [:create]
 
-  include Voted
+  after_action :pub_answer, only: [:create]  
+  # after_action :publish_answer, only: [:create, :destroy, :update]
   
   expose :answers, -> { Answer.all }
   expose :answer,  -> { params[:id] ? Answer.with_attached_files.find(params[:id]) : Answer.new }
@@ -14,8 +17,9 @@ class AnswersController < ApplicationController
   end
 
   def update
-    answer.update(answer_params) if current_user.author_of?(answer)
+    # answer.update(answer_params) if current_user.author_of?(answer)
     @question = answer.question
+    may?(answer) ? answer.update(answer_params) : no_rights(@question)
     
     #if current_user.author_of?(answer)
     #  answer.update(answer_params)
@@ -25,7 +29,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    answer.destroy if current_user.author_of?(answer)
+    may?(answer) ? answer.destroy : no_rights(answer.question)
+    # answer.destroy if current_user.author_of?(answer)
 
     #if current_user.author_of?(answer)
     #  answer.destroy
@@ -40,20 +45,33 @@ class AnswersController < ApplicationController
     #answer.make_best if current_user.author_of?(answer.question)
     #@question = answer.question
 
-    if current_user.author_of?(answer.question)
-      answer.make_best
-    else
-      redirect_to answer.question, notice: 'You have no rights to do this.'
-    end
+    may?(answer.question) ? answer.make_best : no_rights(answer.question)
+
+    # if current_user.author_of?(answer.question)
+    #   answer.make_best
+    # else
+    #   redirect_to answer.question, notice: 'You have no rights to do this.'
+    # end
   end
 
   private
 
   def answer_params
     params.require(:answer).permit(:body,
-      Voted::STRONG_PARAMS,
-      files: [],
-      links_attributes: [:name, :url, :id, :_destroy]
+                                  Voted::STRONG_PARAMS,
+                                  files: [],
+                                  links_attributes: [:name, :url, :id, :_destroy]
+                                  )
+  end
+
+  def pub_answer
+    return if answer.errors.any?
+
+    AnswersChannel.broadcast_to(
+      @answer.question,
+      answer: @answer,
+      files: @answer.files.map { |file| { id: file.id, name: file.filename.to_s, url: url_for(file) } },
+      links: @answer.links.select(&:persisted?)
     )
   end
 
