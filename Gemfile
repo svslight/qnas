@@ -50,7 +50,8 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-gem 'slim-rails'
+# gem 'slim-rails'
+gem 'slim', '~> 5.0'
 
 # Helper for creating declarative interfaces in controllers
 gem 'decent_exposure', '3.0.0'
@@ -59,8 +60,6 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'
 gem "sassc-rails"
-# gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
-# gem 'bootstrap-will_paginate', '~>1.0.0'
 gem 'aws-sdk-s3', require: false
 
 # Dynamic nested forms using jQuery made easy; works with formtastic, simple_form or default forms
