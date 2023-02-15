@@ -2,6 +2,7 @@ class Answer < ApplicationRecord
   include Authorable
   include Linkable
   include Votable
+  include Commentable
 
   # belongs_to :author, class_name: 'User'
 
@@ -11,7 +12,7 @@ class Answer < ApplicationRecord
   # has_many :links, dependent: :destroy, as: :linkable
   # has_many :votes, dependent: :destroy, as: :votable
 
-  # Makros принимает атрибуты для модели Links, при создании Ответа создавает ссылки
+  # Makros принимает атрибуты для модели Links, при создании Ответа создает ссылки
   # accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   has_many_attached :files
@@ -28,8 +29,4 @@ class Answer < ApplicationRecord
       update!(reward: question.reward) if question.reward.present?
     end
   end
-
-  # def rating
-  #  self.votes.sum(:value)
-  # end
 end
