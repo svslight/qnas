@@ -2,7 +2,7 @@ ul.votable.list-inline
   li.list-inline-item.rating
     h5
       = "Рейтинг голосования: "
-    span = resource.rating
+      span = resource.rating
 
   - if current_user && !current_user&.author_of?(resource)  
     li.list-inline-item.voteup
