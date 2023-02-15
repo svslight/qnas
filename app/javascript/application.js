@@ -6,12 +6,19 @@ import "controllers"
 import 'jquery'
 import "jquery_ujs"
 
+// WebSockets
 import "@rails/actioncable"
 import "@rails/activestorage" 
-import "./channels/"
+
+// javascript
 import "./channels/consumer"
 import "./channels/questions"
 import "./channels/answers"
+import "./channels/votable"
+import "./channels/add_link"
+import "./channels/comments"
+import "./templates/answer"
+import "./templates/comment"
 
 import "./custom/answers"
 import "./custom/questions"
