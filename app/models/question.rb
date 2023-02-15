@@ -2,6 +2,7 @@ class Question < ApplicationRecord
   include Authorable
   include Linkable
   include Votable
+  include Commentable
 
   # belongs_to :author, class_name: 'User'
   
@@ -19,8 +20,4 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :reward, reject_if: :all_blank, allow_destroy: true
 
   validates :title, :body, presence: true
-
-  # def rating
-  #  self.votes.sum(:value)
-  # end
 end
