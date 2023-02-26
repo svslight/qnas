@@ -71,7 +71,7 @@ GEM
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.711.0)
+    aws-partitions (1.716.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -110,7 +110,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
     date (3.3.3-java)
@@ -119,7 +119,7 @@ GEM
       reline (>= 0.3.1)
     decent_exposure (3.0.0)
       activesupport (>= 4.0)
-    devise (4.8.1)
+    devise (4.9.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -150,6 +150,7 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
+    hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -166,6 +167,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jwt (2.7.0)
     launchy (2.5.2)
       addressable (~> 2.8)
     listen (3.8.0)
@@ -188,6 +190,9 @@ GEM
     msgpack (1.6.0)
     msgpack (1.6.0-java)
     multi_json (1.15.0)
+    multi_xml (0.6.0)
+    net-http (0.3.2)
+      uri
     net-imap (0.3.4)
       date
       net-protocol
@@ -208,14 +213,31 @@ GEM
       racc (~> 1.4)
     nokogiri (1.14.2-x86-mingw32)
       racc (~> 1.4)
-    octicons (17.11.1)
-    octicons_helper (17.11.1)
+    oauth2 (2.0.9)
+      faraday (>= 0.17.3, < 3.0)
+      jwt (>= 1.0, < 3.0)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 4)
+      snaky_hash (~> 2.0)
+      version_gem (~> 1.1)
+    octicons (17.12.0)
+    octicons_helper (17.12.0)
       actionview
-      octicons (= 17.11.1)
+      octicons (= 17.12.0)
       railties
     octokit (4.25.1)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
+    omniauth-github (2.0.1)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.8)
+    omniauth-oauth2 (1.8.0)
+      oauth2 (>= 1.4, < 3)
+      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     pg (1.4.5)
     pg (1.4.5-x64-mingw32)
@@ -229,6 +251,8 @@ GEM
     racc (1.6.2)
     racc (1.6.2-java)
     rack (2.2.6.2)
+    rack-protection (3.0.5)
+      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4.2)
@@ -307,7 +331,7 @@ GEM
     sawyer (0.9.2)
       addressable (>= 2.3.5)
       faraday (>= 0.17.3, < 3)
-    selenium-webdriver (4.8.0)
+    selenium-webdriver (4.8.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -318,14 +342,18 @@ GEM
       coffee-script-source (>= 1.2.0)
       slim (>= 3.0)
       sprockets (>= 2, < 4)
-    slim (5.0.0)
-      temple (~> 0.10.0)
+    slim (4.1.0)
+      temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
-    spring (2.1.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
-    sprockets (3.7.2)
+    slim-rails (3.6.1)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      slim (>= 3.0, < 6.0, != 5.0.0)
+    snaky_hash (2.0.1)
+      hashie
+      version_gem (~> 1.1, >= 1.1.1)
+    spring (4.1.1)
+    sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.4.2)
@@ -334,10 +362,10 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    temple (0.10.0)
+    temple (0.8.2)
     thor (1.2.1)
     tilt (2.0.11)
-    timeout (0.3.1)
+    timeout (0.3.2)
     turbo-rails (1.3.3)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -346,6 +374,8 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.7)
       tzinfo (>= 1.0.0)
+    uri (0.12.0)
+    version_gem (1.1.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -391,8 +421,11 @@ DEPENDENCIES
   jquery-rails
   launchy
   listen (~> 3.2)
+  net-http
   octicons_helper
   octokit (~> 4.0)
+  omniauth
+  omniauth-github
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
@@ -403,9 +436,9 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers
   skim (~> 0.10.0)
-  slim (~> 5.0)
-  spring
-  spring-watcher-listen (~> 2.0.0)
+  slim-rails
+  spring (~> 4.1)
+  sprockets (= 3.6.3)
   sprockets-rails
   stimulus-rails
   turbo-rails
