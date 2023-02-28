@@ -50,8 +50,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-# gem 'slim-rails'
-gem 'slim', '~> 5.0'
+gem 'slim-rails'
+# gem 'slim', '~> 5.0'
+gem 'sprockets', '3.6.3'
 
 # Helper for creating declarative interfaces in controllers
 gem 'decent_exposure', '3.0.0'
@@ -67,11 +68,20 @@ gem 'cocoon'
 
 gem "octokit", "~> 4.0"
 gem 'octicons_helper'
+
 gem 'faraday-retry'
+gem "net-http"
 
 # Get your Rails variables in your js
 gem 'gon'
 gem 'skim', '~> 0.10.0'
+
+# Библиотека предоставляет универальный интерфейс доступа к любым провайдерам открытой аутентификации
+gem 'omniauth'
+# Gem для каждого конкретного провайдера
+gem 'omniauth-github'
+gem 'omniauth-linkedin-oauth2', '~> 1.0'
+gem "omniauth-rails_csrf_protection", '~> 1.0'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -92,8 +102,8 @@ group :development do
   # gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  gem "spring"
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "spring", '~> 4.1'
+  # gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
