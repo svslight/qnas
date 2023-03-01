@@ -7,9 +7,10 @@
       h2 Список вопросов
     .col-3
       nav.nav.justify-content-end
-        = link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
-        - if current_user
-          = link_to 'See My Rewards', user_rewards_path(current_user), class: 'btn btn-success btn-sm ml-4'
+        - if can?(:create, Question)
+          = link_to 'Ask question', new_question_path, class: 'btn btn-success btn-sm'
+          - if current_user
+            = link_to 'See My Rewards', user_rewards_path(current_user), class: 'btn btn-success btn-sm ml-4'
 
 .list-group.list-group-flush.mt-4
   ul.questions
