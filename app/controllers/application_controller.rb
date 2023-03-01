@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   
-  # before_action :authenticate_user!, unless: :devise_controller?
+  before_action :authenticate_user!, unless: :devise_controller?
   before_action :gon_user, unless: :devise_controller?
 
   # обработчик исключений: взять стандартное сообщение    
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     redirect_to resource, alert: 'You have no rights to do this.'
   end
 
-  # check_authorization unless: :devise_controller?
+  check_authorization unless: :devise_controller?
 
   private
 

@@ -18,4 +18,5 @@ ul.question_answers
   = render question.answers.with_attached_files
 
 / Переход в Партиал Создания Answer, Attached Files, Links: app/views/answers/_new.html.slim
-= render 'answers/new', answer: question.answers.new
+- if can?(:create, Answer)
+  = render 'answers/new', answer: question.answers.new

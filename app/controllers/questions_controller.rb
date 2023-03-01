@@ -1,7 +1,8 @@
-class QuestionsController < ApplicationController
-  include Voted
+class QuestionsController < ApplicationController 
 
   before_action :authenticate_user!, except: %i[index show]
+
+  include Voted
 
   # before_action -> { question.links.build }, only: [:new, :create]  
   # before_action :set_question, only: [:show, :destroy, :update]
@@ -42,6 +43,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize! :update, @question
     @question = Question.find(params[:id])
     # @question.update(question_params) if current_user.author_of?(@question)
     may?(@question) ? @question.update(question_params) : no_rights(@question)
@@ -54,6 +56,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, question
+
     question.destroy if current_user.author_of?(question)    
 
     #if current_user.author_of?(question)

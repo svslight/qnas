@@ -6,16 +6,16 @@ class Ability
   attr_reader :user
 		
   def initialize(user)
-    @user = user   
+    @user = user
 
-    return guest_abilities unless user
-    user.admin? ? admin_abilities : user_abilities   # Тринарный оператор
+    # return guest_abilities unless user
+    # user.admin? ? admin_abilities : user_abilities   # Тринарный оператор
     
-    # if user
-    #   user.admin? ? admin_abilities : user_abilities
-    # else
-    #   guest_abilities
-    # end
+    if user
+      user.admin? ? admin_abilities : user_abilities
+    else
+      guest_abilities
+    end
   end
 
   def guest_abilities
@@ -29,7 +29,7 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer], author_id: user.id
+    can %i[update destroy], [Question, Answer], author_id: user.id
   end
 
     # Define abilities for the user here. For example:
