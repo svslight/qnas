@@ -56,7 +56,11 @@ gem 'sprockets', '3.6.3'
 
 # Helper for creating declarative interfaces in controllers
 gem 'decent_exposure', '3.0.0'
+
+# Аутентификация - процесс проверки, имеет ли пользователь в приложениио логин/пароль
 gem 'devise'
+# Авторизация - управляет правами, имеет ли данный залогиненный польз-ль право выполнять то или иное действие в приложении
+gem 'cancancan'
 
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.2.1'

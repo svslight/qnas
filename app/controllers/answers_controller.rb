@@ -2,13 +2,16 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!, only: [:create]
-
-  after_action :pub_answer, only: [:create]  
+  
   # after_action :publish_answer, only: [:create, :destroy, :update]
   
   expose :answers, -> { Answer.all }
   expose :answer,  -> { params[:id] ? Answer.with_attached_files.find(params[:id]) : Answer.new }
   expose :question, -> { Question.find(params[:question_id]) }
+
+  authorize_resource
+
+  after_action :pub_answer, only: [:create]  
 
   def create
     @answer = question.answers.new(answer_params)
@@ -29,6 +32,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, answer
+    
     may?(answer) ? answer.destroy : no_rights(answer.question)
     # answer.destroy if current_user.author_of?(answer)
 

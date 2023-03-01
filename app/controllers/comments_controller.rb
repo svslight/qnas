@@ -4,8 +4,9 @@ class CommentsController < ApplicationController
   expose :Comments, ->{ Comment.all.order(created_at: :desc) }
 
   before_action :set_commentable, only: :create
-
   after_action :pub_comment, only: :create
+
+  authorize_resource
 
   def create
     @comment = @commentable.comments.new(comment_params)

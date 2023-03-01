@@ -1,9 +1,10 @@
-class QuestionsController < ApplicationController
-  include Voted
+class QuestionsController < ApplicationController 
 
   before_action :authenticate_user!, except: %i[index show]
-  # before_action -> { question.links.build }, only: [:new, :create]
-  
+
+  include Voted
+
+  # before_action -> { question.links.build }, only: [:new, :create]  
   # before_action :set_question, only: [:show, :destroy, :update]
 
   # Передача данных в stream
@@ -13,15 +14,18 @@ class QuestionsController < ApplicationController
   expose :question, -> { params[:id] ? Question.with_attached_files.find(params[:id]) : Question.new }
   expose :answer, -> { Answer.new }
 
-  def new
-    # @question = Question.new
-    question.links.new # .build
-    question.reward = Reward.new
-  end
+  # Встроенный Метод cancan - проверяет Авторизацию class Ability
+  authorize_resource 
 
   def show
     # @answer = Answer.new
     answer.links.new
+  end
+
+  def new
+    # @question = Question.new
+    question.links.new # .build
+    question.reward = Reward.new
   end
 
   def create
@@ -39,6 +43,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize! :update, @question
     @question = Question.find(params[:id])
     # @question.update(question_params) if current_user.author_of?(@question)
     may?(@question) ? @question.update(question_params) : no_rights(@question)
@@ -51,6 +56,8 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, question
+
     question.destroy if current_user.author_of?(question)    
 
     #if current_user.author_of?(question)
