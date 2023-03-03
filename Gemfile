@@ -87,6 +87,9 @@ gem 'omniauth-github'
 gem 'omniauth-linkedin-oauth2', '~> 1.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
+# Позволяет сделать приложение Провайдером OAuth
+gem 'doorkeeper'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
