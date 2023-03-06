@@ -46,6 +46,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (7.0.4.2)
       activesupport (= 7.0.4.2)
       globalid (>= 0.3.6)
@@ -68,16 +73,16 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    autoprefixer-rails (10.4.7.0)
+    autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.716.0)
+    aws-partitions (1.721.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.62.0)
+    aws-sdk-kms (1.63.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.119.1)
@@ -106,6 +111,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    case_transform (0.2)
+      activesupport
     cocoon (1.2.15)
     coffee-script (2.4.1)
       coffee-script-source
@@ -127,6 +134,8 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    doorkeeper (5.6.5)
+      railties (>= 5)
     erubi (1.12.0)
     execjs (2.8.1)
     factory_bot (6.2.1)
@@ -138,7 +147,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
-    faraday-retry (2.0.0)
+    faraday-retry (2.1.0)
       faraday (~> 2.0)
     ffi (1.15.5)
     ffi (1.15.5-java)
@@ -168,6 +177,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    jsonapi-renderer (0.2.2)
     jwt (2.7.0)
     launchy (2.5.2)
       addressable (~> 2.8)
@@ -187,9 +197,9 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
-    minitest (5.17.0)
-    msgpack (1.6.0)
-    msgpack (1.6.0-java)
+    minitest (5.18.0)
+    msgpack (1.6.1)
+    msgpack (1.6.1-java)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     net-http (0.3.2)
@@ -221,14 +231,15 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    octicons (17.12.0)
-    octicons_helper (17.12.0)
+    octicons (18.0.0)
+    octicons_helper (18.0.0)
       actionview
-      octicons (= 17.12.0)
+      octicons (= 18.0.0)
       railties
     octokit (4.25.1)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
+    oj (3.14.2)
     omniauth (2.1.1)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -256,7 +267,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     racc (1.6.2-java)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-protection (3.0.5)
       rack
     rack-test (2.0.2)
@@ -372,7 +383,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.2)
-    turbo-rails (1.3.3)
+    turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -411,6 +422,7 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   aws-sdk-s3
   bootsnap
   bootstrap (~> 4.2.1)
@@ -420,6 +432,7 @@ DEPENDENCIES
   debug
   decent_exposure (= 3.0.0)
   devise
+  doorkeeper
   factory_bot_rails
   faraday-retry
   gon
@@ -431,6 +444,7 @@ DEPENDENCIES
   net-http
   octicons_helper
   octokit (~> 4.0)
+  oj
   omniauth
   omniauth-github
   omniauth-linkedin-oauth2 (~> 1.0)
