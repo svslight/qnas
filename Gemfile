@@ -87,8 +87,12 @@ gem 'omniauth-github'
 gem 'omniauth-linkedin-oauth2', '~> 1.0'
 gem "omniauth-rails_csrf_protection", '~> 1.0'
 
-# Позволяет сделать приложение Провайдером OAuth
+# Gem Позволяет сделать приложение Провайдером OAuth
 gem 'doorkeeper'
+# Библиотека реализует патерн Сериалайзера - для преобразования объектов в нужный формат Json (хэш) или XML
+gem 'active_model_serializers', '~> 0.10.0'
+# Gem для увеличения скорости преообразования объектов и хешей в JSON
+gem 'oj'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
